@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    {{rooms}}
     <div class="image-background">
       <img class="quiz-image" alt="Quiz" src="../assets/children.jpg">
     </div>
@@ -14,8 +15,8 @@
         </div>
       </div>
     </div>
-
     <!-- <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
+    <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
       <h1>room {{ room.name }}</h1>
       <button v-on:click="enterRoom(room.id)">MASUK GAN</button>
     </div>
@@ -23,7 +24,6 @@
       <input type="text" v-model="answer">
       <button type="submit">JAWAB!</button>
     </form> -->
-
   </div>
 </template>
 
@@ -31,7 +31,34 @@
 // @ is an alias to /src
 export default {
   name: 'Home',
-  components: {
+  computed: {
+    rooms () {
+      return this.$store.state.rooms
+    },
+    answer: {
+      get () { return this.$store.state.answer },
+      set (value) { this.$store.commit('setAnswer', value) }
+    },
+    gameStart () {
+      return this.$store.state.gameStart
+    }
+  },
+  methods: {
+    fetchRooms () {
+      this.$store.dispatch('fetchRoomsAsync')
+    },
+    fetchAnswer () {
+      this.$store.dispatch('compareAnswerAsync')
+    },
+    enterRoom (room) {
+      this.$store.dispatch('generatePlayground', room.id)
+      // if (this.gameStart) {
+      //   this.$router.push('/playground')
+      // }
+    }
+  },
+  created () {
+    this.fetchRooms()
   },
   mounted () {
     const _this = this

@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     rooms: [],
-    readyRooms: {},
+    readyRooms: [],
     answer: '',
     gameStart: false
   },
@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     setPlayground (state, params) {
       state.readyRooms = params.obj
       if (params.playerEnough) state.gameStart = params.playerEnough
+      console.log(state.gameStart, state.readyRooms)
     }
   },
   actions: {
@@ -38,17 +39,7 @@ const store = new Vuex.Store({
       // })
     },
     generatePlayground (context, roomId) {
-      const obj = context.state.readyRooms
-      var playerEnough = false
-      if (!obj[roomId]) {
-        obj[roomId] = 1
-      } else {
-        for (const key in obj) {
-          if (!obj[roomId]) obj[roomId] = 1
-          if (+key === roomId) obj[key]++
-        }
-      }
-      this.commit('setPlayground', { obj, playerEnough })
+      socket.emit('joinRoom', roomId)
     }
   }
 })

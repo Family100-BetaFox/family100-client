@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    {{rooms}}
     <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
       <h1>room {{ room.name }}</h1>
       <button v-on:click="enterRoom(room.id)">MASUK GAN</button>
@@ -21,6 +22,9 @@ export default {
     answer: {
       get () { return this.$store.state.answer },
       set (value) { this.$store.commit('setAnswer', value) }
+    },
+    gameStart () {
+      return this.$store.state.gameStart
     }
   },
   methods: {
@@ -30,8 +34,11 @@ export default {
     fetchAnswer () {
       this.$store.dispatch('compareAnswerAsync')
     },
-    enterRoom (roomId) {
-      this.$store.dispatch('generatePlayground', roomId)
+    enterRoom (room) {
+      this.$store.dispatch('generatePlayground', room.id)
+      // if (this.gameStart) {
+      //   this.$router.push('/playground')
+      // }
     }
   },
   created () {

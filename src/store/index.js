@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import io from 'socket.io-client'
-// const socket = io.connect('http://localhost:3000')
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3000')
 
 Vue.use(Vuex)
 
@@ -22,16 +22,14 @@ const store = new Vuex.Store({
     setPlayground (state, params) {
       state.readyRooms = params.obj
       if (params.playerEnough) state.gameStart = params.playerEnough
-      console.log(state.readyRooms, state.gameStart)
     }
   },
   actions: {
     fetchRoomsAsync (context) {
-      const rooms = [{ id: 1, name: 'ipa' }, { id: 2, name: 'matematika' }]
-      this.commit('setRooms', rooms)
-      // socket.on('roomCreated', (room) => {
-
-      // })
+      socket.emit('fetchRooms')
+      socket.on('showRooms', (rooms) => {
+        this.commit('setRooms', rooms)
+      })
     },
     compareAnswerAsync (context) {
       console.log(context.state.answer)

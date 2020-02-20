@@ -15,14 +15,14 @@
       </div>
     </div>
 
-    <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
+    <!-- <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
       <h1>room {{ room.name }}</h1>
       <button v-on:click="enterRoom(room.id)">MASUK GAN</button>
     </div>
     <form v-on:submit.prevent="fetchAnswer">
       <input type="text" v-model="answer">
       <button type="submit">JAWAB!</button>
-    </form>
+    </form> -->
 
   </div>
 </template>
@@ -36,13 +36,12 @@ export default {
   mounted () {
     const _this = this
     window.addEventListener('keypress', function (e) {
-      _this.$router.push('/about')
+      _this.$router.push('/playground')
     })
   }
 }
 </script>
 <style lang="scss" scoped>
-
   .home {
     width: 100%;
     text-align: center;

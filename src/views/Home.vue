@@ -1,18 +1,74 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="image-background">
+      <img class="quiz-image" alt="Quiz" src="../assets/children.jpg">
+    </div>
+    <div class="jumbotron">
+      <h1>Are you smarter than them ?</h1>
+      <div class="jumbotron-info">
+        <h2>Test your knowledge and get the highest score</h2>
+      </div>
+      <div class="start-game">
+        <div class="animated infinite bounce delay-2s">
+          <a>Press any key to continue</a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+  },
+  mounted () {
+    const _this = this
+    window.addEventListener('keypress', function (e) {
+      _this.$router.push('/about')
+    })
   }
 }
 </script>
+<style lang="scss" scoped>
+
+  .home {
+    width: 100%;
+    text-align: center;
+  }
+
+  .start-game {
+    padding-top: 5rem;
+  }
+
+  .jumbotron {
+    color: #fff;
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 80vh;
+    &-info {
+      h2 {
+        padding-top: 5rem;
+        font-weight: bolder;
+        letter-spacing: 1.5px;
+        color: #ccc;
+      }
+    }
+  }
+
+  .image-background {
+    position: relative;
+    .quiz-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      filter: brightness(55%);
+      z-index: -1000;
+    }
+  }
+</style>

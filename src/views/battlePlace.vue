@@ -45,7 +45,6 @@ export default {
       if (this.index === this.questions.length) this.index = 0
       this.question = this.questions[this.index]
       this.readMode = true
-      console.log(this.index)
     },
     countDown () {
       setInterval(() => {
@@ -73,7 +72,7 @@ export default {
 
 .base-timer {
   color: white;
-  font-size: 20vw;
+  font-size: 15rem;
   display: flex;
   position: fixed;
   bottom: 0;
@@ -84,6 +83,7 @@ export default {
   width: 100%;
   background-color: #71afaf;
   border-radius: 50%;
+  height: 18rem;
 }
 
 div#main-battleground {

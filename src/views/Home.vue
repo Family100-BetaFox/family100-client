@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <iframe src="../assets/silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+    <audio controls id="myVideo" autoplay loop hidden>
+    <source src="../assets/openingTheme.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
     <div class="image-background">
       <img class="quiz-image" alt="Quiz" src="../assets/children.jpg">
     </div>
@@ -29,6 +34,8 @@
 
 <script>
 // @ is an alias to /src
+require('howler')
+
 export default {
   name: 'Home',
   components: {
@@ -38,6 +45,15 @@ export default {
     window.addEventListener('keypress', function (e) {
       _this.$router.push('/about')
     })
+    // function playSound () {
+    //   var sound = new Howl({
+    //     src: 'src/assets/opening.mp4',
+    //     autoplay: true,
+    //     loop: true,
+    //     volume: 0.5
+    //   })
+    //   sound.play()
+    // }
   }
 }
 </script>

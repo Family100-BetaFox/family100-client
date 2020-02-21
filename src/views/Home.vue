@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    {{rooms}}
     <div class="image-background">
       <img class="quiz-image" alt="Quiz" src="../assets/children.jpg">
     </div>
@@ -31,35 +30,6 @@
 // @ is an alias to /src
 export default {
   name: 'Home',
-  computed: {
-    rooms () {
-      return this.$store.state.rooms
-    },
-    answer: {
-      get () { return this.$store.state.answer },
-      set (value) { this.$store.commit('setAnswer', value) }
-    },
-    gameStart () {
-      return this.$store.state.gameStart
-    }
-  },
-  methods: {
-    fetchRooms () {
-      this.$store.dispatch('fetchRoomsAsync')
-    },
-    fetchAnswer () {
-      this.$store.dispatch('compareAnswerAsync')
-    },
-    enterRoom (room) {
-      this.$store.dispatch('generatePlayground', room.id)
-      // if (this.gameStart) {
-      //   this.$router.push('/playground')
-      // }
-    }
-  },
-  created () {
-    this.fetchRooms()
-  },
   mounted () {
     const _this = this
     window.addEventListener('keypress', function (e) {
@@ -113,44 +83,4 @@ export default {
       z-index: -1000;
     }
   }
-
-// export default {
-//   name: 'Home',
-//   computed: {
-//     rooms () {
-//       return this.$store.state.rooms
-//     },
-//     answer: {
-//       get () { return this.$store.state.answer },
-//       set (value) { this.$store.commit('setAnswer', value) }
-//     }
-//   },
-//   methods: {
-//     fetchRooms () {
-//       this.$store.dispatch('fetchRoomsAsync')
-//     },
-//     fetchAnswer () {
-//       this.$store.dispatch('compareAnswerAsync')
-//     },
-//     enterRoom (roomId) {
-//       this.$store.dispatch('generatePlayground', roomId)
-//     }
-//   },
-//   created () {
-//     this.fetchRooms()
-//   }
-// }
-// </script>
-
-// <style scoped>
-
-// .home{
-//   display: flex;
-// }
-
-// .rooms{
-//   background-color: aqua;
-//   margin: 1rem;
-//   padding: 1rem
-// }
 </style>

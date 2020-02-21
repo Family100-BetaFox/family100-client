@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <iframe src="../assets/silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
+    <audio controls id="myVideo" autoplay loop hidden>
+    <source src="../assets/openingTheme.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
     <div class="image-background">
       <img class="quiz-image" alt="Quiz" src="../assets/children.jpg">
     </div>
@@ -14,11 +19,12 @@
         </div>
       </div>
     </div>
-    <a href="/battleplace">Go to Battle Place!!</a>
   </div>
 </template>
 
 <script>
+require('howler')
+
 export default {
   // data () {
   //   return {
@@ -63,13 +69,21 @@ export default {
   mounted () {
     const _this = this
     window.addEventListener('keypress', function (e) {
-      _this.$router.push('/about')
+      _this.$router.push('/playground')
     })
+    // function playSound () {
+    //   var sound = new Howl({
+    //     src: 'src/assets/opening.mp4',
+    //     autoplay: true,
+    //     loop: true,
+    //     volume: 0.5
+    //   })
+    //   sound.play()
+    // }
   }
 }
 </script>
 <style lang="scss" scoped>
-
   .home {
     width: 100%;
     text-align: center;
@@ -114,44 +128,4 @@ export default {
       z-index: -1000;
     }
   }
-
-// export default {
-//   name: 'Home',
-//   computed: {
-//     rooms () {
-//       return this.$store.state.rooms
-//     },
-//     answer: {
-//       get () { return this.$store.state.answer },
-//       set (value) { this.$store.commit('setAnswer', value) }
-//     }
-//   },
-//   methods: {
-//     fetchRooms () {
-//       this.$store.dispatch('fetchRoomsAsync')
-//     },
-//     fetchAnswer () {
-//       this.$store.dispatch('compareAnswerAsync')
-//     },
-//     enterRoom (roomId) {
-//       this.$store.dispatch('generatePlayground', roomId)
-//     }
-//   },
-//   created () {
-//     this.fetchRooms()
-//   }
-// }
-// </script>
-
-// <style scoped>
-
-// .home{
-//   display: flex;
-// }
-
-// .rooms{
-//   background-color: aqua;
-//   margin: 1rem;
-//   padding: 1rem
-// }
 </style>

@@ -18,6 +18,7 @@ const routes = [
     path: '/battleplace',
     name: 'Battle Place',
     component: () => import('../views/battlePlace.vue')
+
   }
 ]
 

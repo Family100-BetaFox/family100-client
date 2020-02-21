@@ -61,7 +61,7 @@ export default {
     this.$store.dispatch('getPlayers')
 
     socket.on('startingGame', (payload) => {
-      this.$router.push('/game')
+      this.$router.push('/battleplace')
     })
   },
   watch: {

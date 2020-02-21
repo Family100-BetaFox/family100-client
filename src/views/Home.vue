@@ -19,24 +19,53 @@
         </div>
       </div>
     </div>
-    <!-- <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
-    <div class="rooms" v-for="room in rooms" v-bind:key="room.id">
-      <h1>room {{ room.name }}</h1>
-      <button v-on:click="enterRoom(room.id)">MASUK GAN</button>
-    </div>
-    <form v-on:submit.prevent="fetchAnswer">
-      <input type="text" v-model="answer">
-      <button type="submit">JAWAB!</button>
-    </form> -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 require('howler')
 
 export default {
+  // data () {
+  //   return {
+  //     room1Playing: false,
+  //     room2Playing: false,
+  //     room3Playing: false
+  //   }
+  // },
   name: 'Home',
+  // computed: {
+  //   room1 () {
+  //     return this.$store.state.room1
+  //   },
+  //   room2 () {
+  //     return this.$store.state.room2
+  //   },
+  //   room3 () {
+  //     return this.$store.state.room3
+  //   },
+  //   answer: {
+  //     get () { return this.$store.state.answer },
+  //     set (value) { this.$store.commit('setAnswer', value) }
+  //   },
+  //   gameStart () {
+  //     return this.$store.state.gameStart
+  //   }
+  // },
+  // methods: {
+  //   fetchRooms () {
+  //     this.$store.dispatch('fetchRoomsAsync')
+  //   },
+  //   fetchAnswer () {
+  //     this.$store.dispatch('compareAnswerAsync')
+  //   },
+  //   enterRoom (roomId) {
+  //     this.$store.dispatch('generatePlayground', roomId)
+  //   }
+  // },
+  // created () {
+  //   this.fetchRooms()
+  // },
   mounted () {
     const _this = this
     window.addEventListener('keypress', function (e) {

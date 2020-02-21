@@ -8,9 +8,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    rooms: [],
-    readyRooms: [],
+    questions: [],
     answer: '',
+    score: 0,
+    trueAnswer: [],
     gameStart: false,
     isWaitingOtherPlayer: false,
     logicRoom: [],
@@ -19,11 +20,25 @@ const store = new Vuex.Store({
     riddleRoom: []
   },
   mutations: {
-    setRooms (state, params) {
-      state.rooms = params
+    setQuestions (state, params) {
+      state.questions = params
     },
     setAnswer (state, params) {
       state.answer = params
+    },
+    setScore (state, params) {
+      state.score += params
+    },
+    trueAnswer (state, params) {
+      state.trueAnswer.push(params)
+    }
+  },
+  actions: {
+    fetchQuestionsAsync (context) {
+      socket.emit('fetchQuestions')
+      socket.on('showQuestions', (questions) => {
+        context.commit('setQuestions', questions)
+      })
     },
     setPlayground (state, params) {
       state.readyRooms = params.obj

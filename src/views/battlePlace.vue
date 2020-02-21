@@ -3,12 +3,12 @@
     <div id="main-battleground">
       <div id="question">
         <h1>
-          {{question}}
+          {{question.Q}}
         </h1>
       </div>
       <div id="input-answer">
-        <form v-if="!readMode">
-          <input type="text">
+        <form v-if="!readMode" v-on:submit.prevent="checkAnswer">
+          <input type="text" v-model="answer">
           <button type="submit">submit answer</button>
         </form>
         <form v-if="readMode">
@@ -31,22 +31,42 @@
 export default {
   data () {
     return {
-      questions: ['apa', 'siapa', 'mengapa', 'dimana', 'kapan', 'apa', 'siapa', 'mengapa', 'dimana', 'kapan'],
       initialTime: 'GO',
-      question: 'apa',
+      question: '',
       readMode: true,
       index: 0
     }
   },
+  computed: {
+    Allquestions () {
+      return this.$store.state.questions
+    },
+    answer: {
+      get () {
+        return this.$store.state.answer
+      },
+      set (value) {
+        this.$store.commit('setAnswer', value)
+      }
+    }
+  },
   methods: {
     clearTime () {
+      // console.log(this.$store.state.answer, 'jawaban')
       this.initialTime = 'GO'
       this.index++
-      if (this.index === this.questions.length) this.index = 0
-      this.question = this.questions[this.index]
+      if (this.index === this.Allquestions.length) {
+        this.index = 0
+        this.$router.push('/')
+      }
+      this.question = this.Allquestions[this.index]
+      // console.log(this.question.A, 'dari database')
+      this.$store.commit('trueAnswer', this.question.A)
+      this.$store.commit('setAnswer', '')
       this.readMode = true
     },
     countDown () {
+      // if (!this.question) this.question = this.question.Q
       setInterval(() => {
         if (this.initialTime === 'GO') {
           this.initialTime = 13
@@ -60,9 +80,20 @@ export default {
           }
         }
       }, 1000)
+    },
+    fetchQuestions () {
+      this.$store.dispatch('fetchQuestionsAsync')
+    },
+    checkAnswer () {
+      if (this.$store.state.answer.toLowerCase() === this.question.A.toLowerCase()) {
+        this.$store.commit('setScore', 10)
+      }
+      console.log(this.$store.state.score)
     }
   },
   created () {
+    this.fetchQuestions()
+
     this.countDown()
   }
 }

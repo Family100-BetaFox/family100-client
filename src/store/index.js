@@ -12,6 +12,7 @@ const store = new Vuex.Store({
     answer: '',
     score: 0,
     trueAnswer: [],
+    rooms: [],
     gameStart: false,
     isWaitingOtherPlayer: false,
     logicRoom: [],
@@ -20,6 +21,9 @@ const store = new Vuex.Store({
     riddleRoom: []
   },
   mutations: {
+    setRooms (state, params) {
+      state.rooms = params
+    },
     setQuestions (state, params) {
       state.questions = params
     },
@@ -31,9 +35,7 @@ const store = new Vuex.Store({
     },
     trueAnswer (state, params) {
       state.trueAnswer.push(params)
-    }
-  },
-  actions: {
+    },
     fetchQuestionsAsync (context) {
       socket.emit('fetchQuestions')
       socket.on('showQuestions', (questions) => {
@@ -103,7 +105,8 @@ const store = new Vuex.Store({
     fetchRoomsAsync (context) {
       socket.emit('fetchRooms')
       socket.on('showRooms', (rooms) => {
-        this.commit('setRooms', rooms)
+        console.log(rooms)
+        context.commit('setRooms', rooms)
       })
     },
     getPlayers ({ commit }) {
